@@ -11,11 +11,16 @@ class LandingView extends View {
         <html>
             <head>
                 <meta charset="utf-8">
-                <title>Five Thousand Characters<title>
+                <title>Five Thousand Characters</title>
                 <link rel="stylesheet" type="text/css" href="./src/styles/main.css">
             </head>
             <body>
-                
+                <?php
+
+                $headingElement = new E\headingElement();
+                $headingElement->render('Five Thousand Characters');
+
+                ?>
             </body>
         </html>
         <?php
