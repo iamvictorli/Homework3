@@ -20,6 +20,16 @@ class LandingView extends View {
                 $headingElement = new E\headingElement();
                 $headingElement->render('Five Thousand Characters');
 
+                $WriteSomethingLinkElement = new E\writeSomethingLinkElement();
+                $WriteSomethingLinkElement->render('Write Something!');
+
+                $checkPeopleWritingElement = new E\peopleWritingElement();
+                $checkPeopleWritingElement->render('Check out what people are writing...');
+
+                $filterForm = new E\filterFormElement();
+                $filterForm->render($data);
+
+
                 ?>
             </body>
         </html>
