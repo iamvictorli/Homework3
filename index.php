@@ -19,12 +19,19 @@ spl_autoload_register(function ($class) {
 });
 //if controller and model is not set
 if(!isset($_REQUEST['c']) && !isset($_REQUEST['m'])) {
-    $controller = new C\LandingPageController();
-    $controller->invoke();
+    $LandingViewcontroller = new C\LandingPageController();
+    $LandingViewcontroller->invoke();
 }
 else {
     if($_REQUEST['c'] === 'WriteSomethingLink' && $_REQUEST['m'] === 'invoke' || isset($_REQUEST['Reset'])) {
         $WriteSomethingController = new C\WriteSomethingController();
         $WriteSomethingController->invoke();
+    }
+    else if($_REQUEST['c'] === 'LandingView') {
+        $LandingViewcontroller = new C\LandingPageController();
+        $LandingViewcontroller->invoke();
+    }
+    else {
+        echo "The query string is: ".$_SERVER['QUERY_STRING'];
     }
 }
