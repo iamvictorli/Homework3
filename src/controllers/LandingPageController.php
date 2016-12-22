@@ -37,13 +37,15 @@ class LandingPageController extends Controller {
         while($row = mysqli_fetch_assoc($result)) {
             $data['highestRated'][$row['Identifier']] = $row['Title'];
         }
-        // //call getMostViewedModel do query on $info and save it on $data[mostViewed]
-        // $mostViewed = new H\models\getMostViewedModel();
-        // $result = $mostViewed->doQuery($info);
-        // while($row = mysqli_fetch_assoc($result)) {
-        //     $data['mostViewed'] = $row;
-        // }
-        //
+
+        //call getMostViewedModel do query on $info and save it on $data[mostViewed]
+        $mostViewed = new H\models\getMostViewedModel();
+        $result = $mostViewed->doQuery($info);
+        $data['mostViewed'] = [];
+        while($row = mysqli_fetch_assoc($result)) {
+            $data['mostViewed'][$row['Identifier']] = $row['Title'];
+        }
+
         // //call getNewestModel do query on $info and save it on $data[newest]
         // $newest = new H\models\getNewestModel();
         // $result = $newest->doQuery($info);

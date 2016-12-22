@@ -31,6 +31,9 @@ class LandingView extends View {
 
                 $highestRated = new E\highestRatedElement();
                 $highestRated->render($data['highestRated']);
+
+                $mostViewed = new E\mostViewedElement();
+                $mostViewed->render($data['mostViewed']);
                 ?>
             </body>
         </html>

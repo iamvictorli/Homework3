@@ -32,8 +32,8 @@ class getHighestRatedModel extends Model {
                                 0,S.Sum_Of_Ratings_So_Far/S.Number_Of_Ratings_So_Far) AS AVGRating
                           FROM Story S, StoryGenre G
                           WHERE S.Identifier=G.Identifier AND
-                            G.GenreID=" . intval($GenreID) .
-                            " AND S.Title LIKE '%" . $data['PhraseFilter'] . "%'
+                            G.GenreID=" . intval($GenreID) ." AND
+                            S.Title LIKE '%" . $data['PhraseFilter'] . "%'
                           ORDER BY AVGRating DESC
                           LIMIT 10";
             }
