@@ -16,6 +16,7 @@ class getMostViewedModel extends Model {
                         LIMIT 10";
 
             } else { //filtering by both genre and phrases
+                //select the genreid from chosen genre
                 $query = "SELECT GenreID
                             FROM Genre
                             WHERE GenreName='" . $data['genre'] . "'";

@@ -46,12 +46,13 @@ class LandingPageController extends Controller {
             $data['mostViewed'][$row['Identifier']] = $row['Title'];
         }
 
-        // //call getNewestModel do query on $info and save it on $data[newest]
-        // $newest = new H\models\getNewestModel();
-        // $result = $newest->doQuery($info);
-        // while($row = mysqli_fetch_assoc($result)) {
-        //     $data['newest'] = $row;
-        // }
+        //call getNewestModel do query on $info and save it on $data[newest]
+        $newest = new H\models\getNewestModel();
+        $result = $newest->doQuery($info);
+        $data['newest'] = [];
+        while($row = mysqli_fetch_assoc($result)) {
+            $data['newest'][$row['Identifier']] = $row['Title'];
+        }
 
         //render landing page
         $LandingView = new H\views\LandingView();

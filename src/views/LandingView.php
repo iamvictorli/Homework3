@@ -34,6 +34,9 @@ class LandingView extends View {
 
                 $mostViewed = new E\mostViewedElement();
                 $mostViewed->render($data['mostViewed']);
+
+                $newest = new E\newestElement();
+                $newest->render($data['newest']);
                 ?>
             </body>
         </html>
