@@ -29,7 +29,8 @@ class LandingView extends View {
                 $filterForm = new E\filterFormElement();
                 $filterForm->render($data);
 
-
+                $highestRated = new E\highestRatedElement();
+                $highestRated->render($data['highestRated']);
                 ?>
             </body>
         </html>
