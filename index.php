@@ -23,5 +23,8 @@ if(!isset($_REQUEST['c']) && !isset($_REQUEST['m'])) {
     $controller->invoke();
 }
 else {
-
+    if($_REQUEST['c'] === 'WriteSomethingLink' && $_REQUEST['m'] === 'invoke' || isset($_REQUEST['Reset'])) {
+        $WriteSomethingController = new C\WriteSomethingController();
+        $WriteSomethingController->invoke();
+    }
 }
