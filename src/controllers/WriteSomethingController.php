@@ -18,4 +18,27 @@ class WriteSomethingController extends Controller {
         $WritingView = new H\views\WriteSomethingView();
         $WritingView->render($data);
     }
+
+    public function processForm() {
+        if(!empty($_POST)) { // if post is not empty
+
+            $_SESSION['post-data'] = $_POST;
+            header("Location: " . 'http://localhost/homework3/index.php?c=WriteSomething&m=processForm&redirected=1', true, 302); //redirect
+            exit();
+
+        } else {
+
+            //After redirect  the data is processed in GET and saved to database
+            if(isset($_SESSION['post-data'])) {
+                $storydata = $_SESSION['post-data'];
+
+                //if identifier already exists in database, then display its contents for editting
+                //also make sure identifier length is valid
+                
+            }
+
+            $this->invoke();
+
+        }
+    }
 }

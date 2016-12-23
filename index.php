@@ -31,6 +31,10 @@ else {
         $LandingViewcontroller = new C\LandingPageController();
         $LandingViewcontroller->invoke();
     }
+    else if($_REQUEST['c'] === 'WriteSomething' && $_REQUEST['m'] === 'processForm') {
+        $WriteSomethingController = new C\WriteSomethingController();
+        $WriteSomethingController->processForm();
+    }
     else {
         echo "The query string is: ".$_SERVER['QUERY_STRING'];
     }

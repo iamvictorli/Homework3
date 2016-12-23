@@ -8,13 +8,16 @@ class WriteSomethingFormElement extends Element {
 
     public function render($data = []) {
         ?>
-            <form action="index.php?c=WriteSometing&m=model" method="post">
+            <form action="index.php?c=WriteSomething&m=processForm" method="post">
                 <label for=Title>Title:</label>
                 <input type="text" id="Title" name="Title">
 
                 <label for="Author">Author:</label>
-                <input type="text" id="Identifier" name="Identifier">
+                <input type="text" id="Author" name="Author">
 
+                <label for="Identifer">Identifer:</label>
+                <input type="text" id="Identifier" name="Identifier">
+                
                 <br>
                 <br>
 
