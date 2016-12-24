@@ -12,17 +12,18 @@ class WriteSomethingController extends Controller {
         $result = $genreData->doQuery();
 
         while($row = mysqli_fetch_assoc($result)) {
-            $info['GenreName'][] = $row['GenreName'];
+            $info['selectedgenredisplay']['genre'][] = $row['GenreName'];
         }
 
-        $info['selectedgenredisplay']['genre'] = $info['GenreName'];
         $info['selectedgenredisplay']['userselected'] = [];
 
         if(array_key_exists('genremultiselect', $info)) {
             foreach ($info['genremultiselect'] as $selectedgenrename) {
                 $info['selectedgenredisplay']['userselected'][] = $selectedgenrename;
             }
-        } else {$info['genremultiselect'] = [];}
+        } else {
+            $info['genremultiselect'] = [];
+        }
 
         //display editted story if needed
         if(!array_key_exists('Identifier', $info)) $info['Identifier'] = '';
@@ -34,7 +35,7 @@ class WriteSomethingController extends Controller {
         if(!array_key_exists('ErrorAuthorMessage', $info)) $info['ErrorAuthorMessage'] = '';
         if(!array_key_exists('ErrorContentMessage', $info)) $info['ErrorContentMessage'] = '';
         if(!array_key_exists('ErrorGenreMultiSelectMessage', $info)) $info['ErrorGenreMultiSelectMessage'] = '';
-        var_dump($info);
+        
         $WritingView = new H\views\WriteSomethingView();
         $WritingView->render($info);
     }
