@@ -112,7 +112,6 @@ class WriteSomethingController extends Controller {
 
                         //save story model
                     }
-                    var_dump($data);
 
                 }
                 unset($_SESSION['post-data']);
@@ -127,11 +126,10 @@ class WriteSomethingController extends Controller {
     public function validateUserData(&$data) {
         $result = true;
 
-        if(!array_key_exists('ErrorIdentifierMessage', $data)) {
-            $data['ErrorIdentifierMessage'] = '';
+        if(array_key_exists('ErrorIdentifierMessage', $data)) {
+            if(!empty($data['ErrorIdentifierMessage'])) $result = false;
         } else {
-            $result = false;
-            return $result;
+            $data['ErrorIdentifierMessage'] = '';
         }
 
         $data['ErrorTitleMessage'] = '';
