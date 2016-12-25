@@ -35,6 +35,7 @@ class WriteSomethingController extends Controller {
         if(!array_key_exists('ErrorAuthorMessage', $info)) $info['ErrorAuthorMessage'] = '';
         if(!array_key_exists('ErrorContentMessage', $info)) $info['ErrorContentMessage'] = '';
         if(!array_key_exists('ErrorGenreMultiSelectMessage', $info)) $info['ErrorGenreMultiSelectMessage'] = '';
+        if(!array_key_exists('SavingMessage', $info)) $info['SavingMessage'] = '';
 
         $WritingView = new H\views\WriteSomethingView();
         $WritingView->render($info);
@@ -107,10 +108,23 @@ class WriteSomethingController extends Controller {
                     //and the save it
                     if($this->validateUserData($data)) {
                         //if findStory model
-                        //then
-                        //deleteStory model
+                        $findStory = new H\models\findStoryModel();
+                        $result = $findStory->doQuery($data);
+
+                        if($result->num_rows > 0) {
+                            //deleteStory model
+                            $deleteStory = new H\models\deleteStoryModel();
+                            $deleteStory->doQuery($data);
+                        }
 
                         //save story model
+                        $saveStory = new H\models\saveStoryModel();
+                        $result = $saveStory->doQuery($data);
+                        if($result) {
+                            $data['SavingMessage'] = 'Story has been saved';
+                        } else {
+                            $data['SavingMessage'] = 'Something has gone wrong with your story';
+                        }
                     }
 
                 }

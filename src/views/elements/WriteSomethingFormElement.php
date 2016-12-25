@@ -52,6 +52,7 @@ class WriteSomethingFormElement extends Element {
                 <div>
                     <button name="Reset">Reset</button>
                     <button name="Save">Save</button>
+                    <span class="errormsg"><?php echo($data['SavingMessage']); ?></span>
                 </div>
             </form>
 
