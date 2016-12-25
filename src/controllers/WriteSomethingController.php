@@ -35,7 +35,7 @@ class WriteSomethingController extends Controller {
         if(!array_key_exists('ErrorAuthorMessage', $info)) $info['ErrorAuthorMessage'] = '';
         if(!array_key_exists('ErrorContentMessage', $info)) $info['ErrorContentMessage'] = '';
         if(!array_key_exists('ErrorGenreMultiSelectMessage', $info)) $info['ErrorGenreMultiSelectMessage'] = '';
-        
+
         $WritingView = new H\views\WriteSomethingView();
         $WritingView->render($info);
     }
@@ -50,7 +50,7 @@ class WriteSomethingController extends Controller {
 
         } else {
 
-            //After redirect  the data is processed in GET and saved to database
+            //After redirect the data is processed in GET and saved to database
             if(isset($_SESSION['post-data'])) {
                 $storydata = $_SESSION['post-data'];
 
@@ -89,7 +89,31 @@ class WriteSomethingController extends Controller {
                         }
                     }
                 } else {
-                    echo('Something is not working');
+                    //get all the info for adding a new story, but first filter
+                    $data['Title'] = filter_var($storydata['Title'], FILTER_SANITIZE_SPECIAL_CHARS);
+                    $data['Content'] = filter_var($storydata['Writing'], FILTER_SANITIZE_SPECIAL_CHARS);
+                    $data['Identifier'] = filter_var($storydata['Identifier'], FILTER_SANITIZE_SPECIAL_CHARS);
+                    $data['Author'] = filter_var($storydata['Author'], FILTER_SANITIZE_SPECIAL_CHARS);
+
+                    $data['genremultiselect'] = [];
+                    if(isset($storydata['Genre'])) {
+                        foreach ($storydata['Genre'] as $SelectedGenre) {
+                            array_push($data['genremultiselect'], $SelectedGenre);
+                        }
+                    }
+
+                    //checks to see if all user data meets the character limits
+                    //if it is able to, first see if there is another story with the same identifier and replace it
+                    //and the save it
+                    if($this->validateUserData($data)) {
+                        //if findStory model
+                        //then
+                        //deleteStory model
+
+                        //save story model
+                    }
+                    var_dump($data);
+
                 }
                 unset($_SESSION['post-data']);
             }
@@ -97,5 +121,51 @@ class WriteSomethingController extends Controller {
             $this->invoke($data);
 
         }
+    }
+
+    //validates all user data
+    public function validateUserData(&$data) {
+        $result = true;
+
+        if(!array_key_exists('ErrorIdentifierMessage', $data)) {
+            $data['ErrorIdentifierMessage'] = '';
+        } else {
+            $result = false;
+            return $result;
+        }
+
+        $data['ErrorTitleMessage'] = '';
+        $data['ErrorAuthorMessage'] = '';
+        $data['ErrorContentMessage'] = '';
+        $data['ErrorGenreMultiSelectMessage'] = '';
+
+        $identifierEmpty = false;
+        //checks to see if identifier is empty
+        if(empty($data['Identifier'])) {
+            $data['ErrorIdentifierMessage'] = 'Identifier cannot be empty';
+            $result = false;
+            $identifierEmpty = true;
+        }
+
+        if(strlen($data['Title']) > 75) {
+            $data['ErrorTitleMessage'] = 'Title length exceeds limit of 75';
+            $result = false;
+        }
+
+        if(strlen($data['Author']) > 35) {
+            $data['ErrorAuthorMessage'] = 'Author length exceeds limit of 35';
+            $result = false;
+        }
+
+        if(strlen($data['Content']) > 5000) {
+            $data['ErrorContentMessage'] = 'Content length exceeds limit of 5000';
+            $result = false;
+        }
+
+        if(empty($data['genremultiselect'])) {
+            $data['ErrorGenreMultiSelectMessage'] = 'Error. Select at least one genre';
+            $result = false;
+        }
+        return $result;
     }
 }
