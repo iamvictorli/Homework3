@@ -39,6 +39,6 @@ else {
         $ReadStoryController = new C\ReadStoryController();
         $ReadStoryController->rateStory($_REQUEST);
     } else {
-        echo('Page not found! Invalid Controller of method call');
+        echo('Page not found! Invalid Controller or method call');
     }
 }
