@@ -26,16 +26,19 @@ else {
     if($_REQUEST['c'] === 'WriteSomethingLink' && $_REQUEST['m'] === 'invoke' || isset($_REQUEST['Reset'])) {
         $WriteSomethingController = new C\WriteSomethingController();
         $WriteSomethingController->invoke();
-    }
-    else if($_REQUEST['c'] === 'LandingView') {
+    } else if($_REQUEST['c'] === 'LandingView') {
         $LandingViewcontroller = new C\LandingPageController();
         $LandingViewcontroller->invoke();
-    }
-    else if($_REQUEST['c'] === 'WriteSomething' && $_REQUEST['m'] === 'processForm') {
+    } else if($_REQUEST['c'] === 'WriteSomething' && $_REQUEST['m'] === 'processForm') {
         $WriteSomethingController = new C\WriteSomethingController();
         $WriteSomethingController->processForm();
-    }
-    else {
-        echo "The query string is: ".$_SERVER['QUERY_STRING'];
+    } else if($_REQUEST['c'] === 'ReadStory' && $_REQUEST['m'] === 'invoke') {
+        $ReadStoryController = new C\ReadStoryController();
+        $ReadStoryController->invoke($_REQUEST);
+    } else if($_REQUEST['c'] === 'ReadStory' && $_REQUEST['m'] === 'rateStory') {
+        $ReadStoryController = new C\ReadStoryController();
+        $ReadStoryController->rateStory($_REQUEST);
+    } else {
+        echo('Page not found! Invalid Controller of method call');
     }
 }
